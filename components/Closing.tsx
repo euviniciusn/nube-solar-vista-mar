@@ -1,15 +1,15 @@
 const POINTS = [
   {
     number: "01",
-    text: "Já entregue e funcionando. Ninguém mais começa com essa vantagem.",
+    text: "O sistema já está rodando. Vocês largam na frente desde o primeiro dia.",
   },
   {
     number: "02",
-    text: "Mais do que o contrato. Sem custo adicional.",
+    text: "Entregamos além do contrato — sem cobrar nada a mais por isso.",
   },
   {
     number: "03",
-    text: "Empresa local. Suporte em até 6 horas.",
+    text: "Somos daqui. Qualquer problema, resolvemos em até 6 horas.",
   },
 ];
 
@@ -32,9 +32,9 @@ export function Closing() {
       {/* Final CTA */}
       <div className="mt-10 border-t border-border/30 pt-8 text-center sm:mt-20 sm:pt-14">
         <p className="mx-auto max-w-3xl text-lg font-semibold leading-relaxed tracking-tight sm:text-2xl lg:text-3xl">
-          A decisão é de vocês.{" "}
+          Já estamos cuidando do condomínio.{" "}
           <span className="text-muted-foreground">
-            Pedimos apenas a oportunidade de uma comparação justa.
+            Imagine o que podemos fazer com a parceria completa.
           </span>
         </p>
 
