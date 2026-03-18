@@ -81,11 +81,11 @@ export function Delivered() {
         Tudo que vai além do contrato foi entregue sem custo adicional.
       </p>
 
-      <div className="flex flex-wrap justify-center gap-4 lg:gap-8">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-6">
         {CARDS.map((card) => (
           <div
             key={card.category}
-            className="rounded-2xl border border-border bg-card group flex w-full flex-col gap-4 p-5 sm:w-[calc(50%-0.5rem)] sm:gap-5 sm:p-10 lg:w-[calc(33.333%-1.375rem)]"
+            className="rounded-2xl border border-border bg-card group flex flex-col gap-3 p-4 sm:gap-5 sm:p-8"
           >
             {/* Header */}
             <div className="flex items-center gap-3 sm:gap-4">

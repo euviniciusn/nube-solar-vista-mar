@@ -16,7 +16,7 @@ const BADGE_CLS: Record<BadgeVariant, string> = {
 };
 function Badge({ label, variant }: { label: string; variant: BadgeVariant }) {
   return (
-    <span className={`inline-flex rounded-full border px-3 py-0.5 text-xs font-semibold sm:text-sm ${BADGE_CLS[variant]}`}>
+    <span className={`inline-flex w-fit rounded-full border px-3 py-0.5 text-xs font-semibold sm:text-sm ${BADGE_CLS[variant]}`}>
       {label}
     </span>
   );
@@ -147,23 +147,21 @@ export function NewScope() {
 
       {/* Já atendido */}
       <div className="mb-10 sm:mb-16">
-        <h3 className="mb-6 text-base font-semibold tracking-tight text-muted-foreground sm:mb-8 sm:text-2xl">
+        <h3 className="mb-6 text-center text-base font-semibold tracking-tight text-muted-foreground sm:mb-8 sm:text-2xl">
           Já atendido
         </h3>
-        <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-6">
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:max-w-none lg:grid-cols-3 lg:gap-6">
           {DONE.map((d) => (
             <div
               key={d.title}
-              className="rounded-xl border border-border bg-card flex items-start gap-3 px-4 py-4 sm:items-center sm:gap-4 sm:px-6 sm:py-5"
+              className="rounded-xl border border-border bg-card flex flex-col items-center gap-2 px-4 py-4 text-center sm:gap-3 sm:px-6 sm:py-5"
             >
-              <div className="mt-0.5 shrink-0 sm:mt-0"><CheckIcon /></div>
-              <div className="flex flex-col gap-1.5">
-                <span className="text-sm font-semibold leading-tight sm:text-base">{d.title}</span>
-                <Badge label={d.badge} variant="green" />
-                {d.desc && (
-                  <span className="text-xs leading-snug text-muted-foreground">{d.desc}</span>
-                )}
-              </div>
+              <CheckIcon />
+              <span className="text-sm font-semibold leading-tight sm:text-base">{d.title}</span>
+              <Badge label={d.badge} variant="green" />
+              {d.desc && (
+                <span className="text-xs leading-snug text-muted-foreground">{d.desc}</span>
+              )}
             </div>
           ))}
         </div>
@@ -171,7 +169,7 @@ export function NewScope() {
 
       {/* Novas entregas */}
       <div>
-        <h3 className="mb-6 text-base font-semibold tracking-tight text-muted-foreground sm:mb-8 sm:text-2xl">
+        <h3 className="mb-6 text-center text-base font-semibold tracking-tight text-muted-foreground sm:mb-8 sm:text-2xl">
           Novas entregas
         </h3>
 
