@@ -1,11 +1,6 @@
-/* ── Check icon ── */
-function CheckIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-success" aria-hidden="true">
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
+"use client";
+
+import Image from "next/image";
 
 /* ── Badge ── */
 type BadgeVariant = "green" | "blue" | "amber";
@@ -22,39 +17,60 @@ function Badge({ label, variant }: { label: string; variant: BadgeVariant }) {
   );
 }
 
-/* ── Data ── */
-const DONE: { title: string; badge: string; desc?: string }[] = [
-  { title: "Faciais nas torres", badge: "R$ 0" },
-  { title: "Câmeras elevadores", badge: "R$ 0" },
-  { title: "Wi-Fi áreas comuns", badge: "R$ 0" },
-];
-
-interface NewItem {
-  title: string;
-  text: string;
-  badges: { label: string; variant: BadgeVariant }[];
-  icon: React.ReactNode;
+/* ── Check icon (inline) ── */
+function CheckInline() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-success" aria-hidden="true">
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
 }
 
-const NEW_ITEMS: NewItem[] = [
+/* ── Data ── */
+const DONE = [
+  "Faciais nas torres",
+  "Câmeras elevadores",
+  "Wi-Fi áreas comuns",
+];
+
+interface ScopeCard {
+  headline: string;
+  tagline: string;
+  badge: { label: string; variant: BadgeVariant };
+  placeholderGradient: string;
+  icon: React.ReactNode;
+  image?: string;
+  imagePosition?: string;
+}
+
+const SCOPE_CARDS: ScopeCard[] = [
   {
-    title: "Piscina",
-    text: "Catracas com reconhecimento facial + câmera inteligente na grade",
-    badges: [{ label: "Novo", variant: "blue" }],
+    headline: "Proteção começa na rua",
+    tagline: "Poste com câmeras inteligentes na frente do condomínio. Detecta movimentação suspeita na rua e dispara alertas antes de qualquer tentativa de invasão.",
+    badge: { label: "Novo", variant: "blue" },
+    image: "/torre-vigilancia.png",
+    imagePosition: "object-top",
+    placeholderGradient: "from-violet-950 via-indigo-900 to-slate-900",
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
-        <path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
-        <path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M2 20h20" />
+        <path d="M12 2v18" />
+        <path d="m8 6 4-4 4 4" />
+        <path d="M4 14h4" />
+        <path d="M16 14h4" />
+        <path d="M7 10h2" />
+        <path d="M15 10h2" />
       </svg>
     ),
   },
   {
-    title: "Portaria",
-    text: "Leitor facial de alta qualidade para pedestres + câmera que lê a placa do veículo e libera a entrada automaticamente",
-    badges: [{ label: "Upgrade", variant: "amber" }, { label: "Novo", variant: "blue" }],
+    headline: "Chegou, abriu. Sem fila.",
+    tagline: "A câmera lê a placa do seu carro e abre o portão automaticamente. Pedestres passam pelo facial sem precisar de chave, controle ou senha.",
+    badge: { label: "Upgrade", variant: "amber" },
+    image: "/portaria-camera.png",
+    placeholderGradient: "from-slate-900 via-purple-950 to-slate-900",
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect width="18" height="18" x="3" y="3" rx="2" />
         <path d="M3 9h18" />
         <path d="M9 21V9" />
@@ -62,43 +78,52 @@ const NEW_ITEMS: NewItem[] = [
     ),
   },
   {
-    title: "Câmeras IA",
-    text: "~20 câmeras com inteligência artificial integrada",
-    badges: [{ label: "Novo", variant: "blue" }],
+    headline: "Só quem mora, entra.",
+    tagline: "Catracas com reconhecimento facial na entrada da piscina. Câmera inteligente na grade identifica quem tenta pular e dispara alerta em tempo real.",
+    badge: { label: "Novo", variant: "blue" },
+    image: "/torniquete.jpg",
+    placeholderGradient: "from-cyan-950 via-blue-950 to-slate-900",
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+        <path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+        <path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
+      </svg>
+    ),
+  },
+  {
+    headline: "Olhos que nunca dormem",
+    tagline: "Cerca de 20 câmeras com inteligência artificial cobrindo todo o condomínio. Detectam invasão, objetos abandonados e comportamento suspeito — 24 horas por dia.",
+    badge: { label: "Novo", variant: "blue" },
+    image: "/cameras-com-ia.png",
+    placeholderGradient: "from-slate-900 via-violet-950 to-indigo-950",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="m22 8-6 4 6 4V8Z" />
         <rect width="14" height="12" x="2" y="6" rx="2" ry="2" />
       </svg>
     ),
   },
   {
-    title: "Perímetro",
-    text: "Câmeras externas com alerta de invasão",
-    badges: [{ label: "Novo", variant: "blue" }],
+    headline: "Seu condomínio no bolso",
+    tagline: "Autorize visitantes, acompanhe encomendas e abra o portão direto pelo celular. Gestão completa do condomínio sem depender da portaria.",
+    badge: { label: "Novo", variant: "blue" },
+    image: "/aplicativo.jpg",
+    placeholderGradient: "from-purple-950 via-fuchsia-950 to-slate-900",
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
-      </svg>
-    ),
-  },
-  {
-    title: "App",
-    text: "Visitantes, encomendas e gestão",
-    badges: [{ label: "Novo", variant: "blue" }],
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
         <path d="M12 18h.01" />
       </svg>
     ),
   },
   {
-    title: "Wi-Fi",
-    text: "Expansão para todas as áreas comuns",
-    badges: [{ label: "Expansão", variant: "amber" }],
+    headline: "Conectado em todo canto",
+    tagline: "Wi-Fi de alta velocidade expandido para todas as áreas comuns — piscina, salão de festas, churrasqueira e playground. Sem zona morta.",
+    badge: { label: "Expansão", variant: "amber" },
+    placeholderGradient: "from-slate-900 via-emerald-950 to-slate-900",
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 20h.01" />
         <path d="M2 8.82a15 15 0 0 1 20 0" />
         <path d="M5 12.859a10 10 0 0 1 14 0" />
@@ -106,122 +131,106 @@ const NEW_ITEMS: NewItem[] = [
       </svg>
     ),
   },
-  {
-    title: "Central inteligente",
-    text: "Painel de monitoramento com inteligência artificial",
-    badges: [{ label: "Novo", variant: "blue" }],
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect width="20" height="14" x="2" y="3" rx="2" />
-        <line x1="8" x2="16" y1="21" y2="21" />
-        <line x1="12" x2="12" y1="17" y2="21" />
-      </svg>
-    ),
-  },
-  {
-    title: "Portões e cancela",
-    text: "Manutenção dos motores e da cancela anti-esmagamento",
-    badges: [{ label: "Novo", variant: "blue" }],
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect width="18" height="18" x="3" y="3" rx="2" />
-        <path d="M3 9h18" />
-        <path d="M3 15h18" />
-        <path d="M9 3v18" />
-        <path d="M15 3v18" />
-      </svg>
-    ),
-  },
 ];
 
-/* ── Component ── */
+/* ── Zigzag Card ── */
+function ZigzagCard({ card, index }: { card: ScopeCard; index: number }) {
+  const isReversed = index % 2 !== 0;
+
+  return (
+    <div className="group overflow-hidden rounded-2xl border border-border transition-all duration-500 hover:border-primary/40">
+      <div className={`flex flex-col ${isReversed ? "sm:flex-row-reverse" : "sm:flex-row"}`}>
+        {/* Image side */}
+        <div className="relative h-72 overflow-hidden sm:h-auto sm:min-h-96 sm:w-1/2 lg:min-h-120">
+          {/* Gradient placeholder — always rendered as base layer */}
+          <div className={`absolute inset-0 bg-linear-to-br ${card.placeholderGradient}`} />
+
+          {card.image ? (
+            /* Real image */
+            <Image
+              src={card.image}
+              alt={card.headline}
+              fill
+              className={`object-cover transition-transform duration-700 group-hover:scale-105 ${card.imagePosition ?? ""}`}
+              sizes="(max-width: 640px) 100vw, 50vw"
+            />
+          ) : (
+            <>
+              {/* Icon as placeholder visual */}
+              <div className="absolute inset-0 flex items-center justify-center text-white/15 transition-transform duration-700 group-hover:scale-110">
+                <div className="scale-150">
+                  {card.icon}
+                </div>
+              </div>
+
+              {/* Subtle light overlay */}
+              <div
+                className="absolute inset-0 opacity-30"
+                style={{
+                  backgroundImage: "radial-gradient(circle at 30% 40%, rgba(124,58,237,0.15) 0%, transparent 50%), radial-gradient(circle at 70% 60%, rgba(59,130,246,0.1) 0%, transparent 50%)",
+                }}
+              />
+            </>
+          )}
+
+          {/* Badge — top left of image */}
+          <div className="absolute left-3 top-3 sm:left-4 sm:top-4">
+            <Badge label={card.badge.label} variant={card.badge.variant} />
+          </div>
+        </div>
+
+        {/* Text side */}
+        <div className="flex w-full flex-col justify-center gap-4 p-6 sm:w-1/2 sm:p-8 lg:p-12">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            {card.icon}
+          </div>
+          <h3 className="text-xl font-bold leading-tight tracking-tight sm:text-2xl lg:text-3xl">
+            {card.headline}
+          </h3>
+          <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+            {card.tagline}
+          </p>
+        </div>
+      </div>
+
+      {/* Hover glow */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{ boxShadow: "inset 0 0 30px rgba(124,58,237,0.1), 0 0 30px rgba(124,58,237,0.08)" }}
+      />
+    </div>
+  );
+}
+
+/* ── Main Component ── */
 export function NewScope() {
   return (
     <section className="section-divider mx-auto w-full max-w-7xl px-4 py-12 sm:px-8 sm:py-24 lg:py-32">
       <h2 className="mb-3 text-center text-2xl font-bold tracking-tight sm:mb-4 sm:text-4xl lg:text-5xl">
         Novo Escopo
       </h2>
-      <p className="mx-auto mb-8 max-w-lg text-center text-sm text-muted-foreground sm:mb-14 sm:text-lg">
-        O que já está funcionando e o que vem pela frente.
+      <p className="mx-auto mb-8 max-w-md text-center text-sm text-muted-foreground sm:mb-14 sm:text-lg">
+        O que já funciona e o que vem pela frente.
       </p>
 
-      {/* Já atendido */}
-      <div className="mb-10 sm:mb-16">
-        <h3 className="mb-6 text-center text-base font-semibold tracking-tight text-muted-foreground sm:mb-8 sm:text-2xl">
-          Já atendido
-        </h3>
-        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:max-w-none lg:grid-cols-3 lg:gap-6">
-          {DONE.map((d) => (
-            <div
-              key={d.title}
-              className="rounded-xl border border-border bg-card flex flex-col items-center gap-2 px-4 py-4 text-center sm:gap-3 sm:px-6 sm:py-5"
-            >
-              <CheckIcon />
-              <span className="text-sm font-semibold leading-tight sm:text-base">{d.title}</span>
-              <Badge label={d.badge} variant="green" />
-              {d.desc && (
-                <span className="text-xs leading-snug text-muted-foreground">{d.desc}</span>
-              )}
-            </div>
-          ))}
-        </div>
+      {/* Já atendido — compact inline bar */}
+      <div className="mb-8 flex flex-wrap items-center justify-center gap-3 sm:mb-12 sm:gap-5">
+        {DONE.map((item) => (
+          <div
+            key={item}
+            className="flex items-center gap-1.5 rounded-full border border-success/20 bg-success/5 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2"
+          >
+            <CheckInline />
+            <span className="text-xs font-medium text-success sm:text-sm">{item}</span>
+          </div>
+        ))}
       </div>
 
-      {/* Novas entregas */}
-      <div>
-        <h3 className="mb-6 text-center text-base font-semibold tracking-tight text-muted-foreground sm:mb-8 sm:text-2xl">
-          Novas entregas
-        </h3>
-
-        {/* Destaque — Torre de vigilância */}
-        <div className="mb-4 rounded-2xl border-2 border-primary/30 bg-card p-5 sm:mb-6 sm:p-10">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M2 20h20" />
-                <path d="M12 2v18" />
-                <path d="m8 6 4-4 4 4" />
-                <path d="M4 14h4" />
-                <path d="M16 14h4" />
-                <path d="M7 10h2" />
-                <path d="M15 10h2" />
-              </svg>
-            </div>
-            <div className="flex flex-1 flex-col gap-2">
-              <div className="flex flex-wrap items-center gap-2.5">
-                <span className="text-lg font-bold sm:text-xl">Torre de vigilância externa</span>
-                <Badge label="Novo" variant="blue" />
-              </div>
-              <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Poste com câmeras inteligentes na frente do condomínio, monitorando a rua 24 horas com alertas automáticos.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid gap-3 sm:grid-cols-2 sm:gap-5 lg:gap-6">
-          {NEW_ITEMS.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-xl border border-border bg-card group flex gap-4 p-4 transition-shadow hover:shadow-lg sm:gap-5 sm:p-7"
-            >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary/20 sm:h-14 sm:w-14 sm:rounded-2xl">
-                {item.icon}
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="text-base font-bold sm:text-lg">{item.title}</span>
-                  {item.badges.map((b) => (
-                    <Badge key={b.label} label={b.label} variant={b.variant} />
-                  ))}
-                </div>
-                <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  {item.text}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* Zigzag cards */}
+      <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8">
+        {SCOPE_CARDS.map((card, i) => (
+          <ZigzagCard key={card.headline} card={card} index={i} />
+        ))}
       </div>
     </section>
   );
