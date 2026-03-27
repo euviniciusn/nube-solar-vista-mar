@@ -78,7 +78,7 @@ const SCOPE_CARDS: ScopeCard[] = [
     ),
   },
   {
-    headline: "Só quem mora, entra.",
+    headline: "Entrada sob controle.",
     tagline: "Catracas com reconhecimento facial na entrada da piscina. Câmera inteligente na grade identifica quem tenta pular e dispara alerta em tempo real.",
     badge: { label: "Novo", variant: "blue" },
     image: "/torniquete.jpg",
@@ -121,6 +121,7 @@ const SCOPE_CARDS: ScopeCard[] = [
     headline: "Conectado em todo canto",
     tagline: "Wi-Fi de alta velocidade expandido para todas as áreas comuns — piscina, salão de festas, churrasqueira e playground. Sem zona morta.",
     badge: { label: "Expansão", variant: "amber" },
+    image: "/Wi-Fi.png",
     placeholderGradient: "from-slate-900 via-emerald-950 to-slate-900",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
